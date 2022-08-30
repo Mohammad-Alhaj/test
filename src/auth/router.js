@@ -5,7 +5,7 @@ const basic = require("./middleware/basic");
  const signup = require('./middleware/signup');
 const bearer = require("./middleware/bearer");
 const acl = require('./middleware/acl');
-
+const User = require('./models/users-model')
 UserRouter.post("/signin", basic, async (req, res) => {
  res.status(200).json(req.user);
 });
@@ -13,12 +13,20 @@ UserRouter.post("/signin", basic, async (req, res) => {
 UserRouter.post("/signup",signup, async (req, res) => {
   
 });
-UserRouter.get("/User",bearer, (req, res) => {// The error was here
-    res.json({
-        'message': 'You are authorized to view the user orders',
-        'user': req.user
+try {
+    UserRouter.get("/users",bearer,async (req, res) => {// The error was here
+
+        const allUsers = await User.findAll()
+        res.json({
+            'message': 'You are authorized to view the user orders',
+            'user': allUsers
+        });
     });
-});
+}catch(err){
+    console.log(err);
+res.send(err)
+}
+
 
 UserRouter.get("/sitting",bearer,acl('read'),(req,res)=>{
     res.status(200).send("enter the sitting")

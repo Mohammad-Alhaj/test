@@ -3,18 +3,26 @@
 const User = require('../models/users-model')
 const bcrypt = require("bcrypt");
 
-const signup = (async(req,res,next)=>{
-    const username = req.body.username;
-    const role = req.body.role
-    const password = await bcrypt.hash(req.body.password, 10);
+module.exports = (async(req,res,next)=>{
+  const username = req.body.username;
+  const role = req.body.role
+  const password = await bcrypt.hash(req.body.password, 10);
+  
+  try{
+  
     const record = await User.create({ 
         username: username,
          password: password,
          role:role
          });
-  res.status(201).json(record);
+         
 
-next()
+           res.status(201).json(record);
+           next()
+
+}catch(err){
+next('Error')
+}
+
+
 })
-
-module.exports = signup
