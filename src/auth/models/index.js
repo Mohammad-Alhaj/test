@@ -5,6 +5,7 @@ const { Sequelize,DataTypes } = require('sequelize');
  const food = require("../../api-server/models/food")
  const clothes = require("../../api-server/models/clothes")
  const todos = require('../../api-server/models/todo')
+ const myStore = require('../../api-server/models/myStore')
  const Collection = require('../../api-server/models/data-collection');
 
  const DATABASE_URL = process.env.NODE_ENV === 'test' ? 'sqlite::memory' : process.env.DATABASE_URL;
@@ -24,6 +25,7 @@ const sequelize = new Sequelize(DATABASE_URL, DATABASE_CONFIG);
 const Food = food(sequelize, DataTypes);
 const Clothes = clothes(sequelize, DataTypes);
 const Todos = todos(sequelize, DataTypes);
+const MyStore = myStore(sequelize, DataTypes);
 
 // module.exports={
 //     dataBase:sequelize,
@@ -34,7 +36,8 @@ const Todos = todos(sequelize, DataTypes);
 module.exports = { sequelize, DataTypes ,
   food: new Collection(Food),
   clothes: new Collection(Clothes),
-  todos: new Collection(Todos)
+  todos: new Collection(Todos),
+  myStore: new Collection(MyStore)
 
 }
 // ,{
