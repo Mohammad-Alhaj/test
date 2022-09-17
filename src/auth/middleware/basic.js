@@ -6,6 +6,7 @@ const User = require('../models/users-model')
 
 const basic =  (async(req,res,next)=>{
     if(req.headers.authorization){
+        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$bbbb",req.headers.authorization,'$$$$$$$$$$$$$$$$$$$$$$') 
         const seconde = req.headers.authorization.split(' ')[1]
         const decode = base64.decode(seconde)
         const [username,password] = decode.split(':')
