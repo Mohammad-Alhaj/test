@@ -7,7 +7,9 @@ const myStore = (sequelize, DataTypes) =>
     description: { type: DataTypes.STRING },
     image: { type: DataTypes.STRING },
     price: { type: DataTypes.STRING },
-
+    addFavorite: { type: DataTypes.BOOLEAN,
+      defaultValue: false,
+  },
     amount: { type: DataTypes.INTEGER },
   });
 
